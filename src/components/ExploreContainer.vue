@@ -1,11 +1,14 @@
 <template>
   <div id="container">
-    <strong>{{ name }}</strong>
-    <p>Explore <a target="_blank" rel="noopener noreferrer" href="https://ionicframework.com/docs/components">UI Components</a></p>
+    <span>Portfolio Value</span>
+    <span class="price">$ 4,562.52</span>
+    <Bagde value="1000" type="success"></Bagde>
   </div>
 </template>
 
 <script setup lang="ts">
+import Bagde from "@/components/Bagde.vue";
+
 defineProps({
   name: String,
 });
@@ -13,27 +16,32 @@ defineProps({
 
 <style scoped>
 #container {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+}
+
+#container span {
+  color: #fff;
   text-align: center;
-  position: absolute;
-  left: 0;
-  right: 0;
-  top: 50%;
-  transform: translateY(-50%);
+  font-family: "Poppins";
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  letter-spacing: -0.24px;
 }
 
-#container strong {
-  font-size: 20px;
-  line-height: 26px;
-}
-
-#container p {
-  font-size: 16px;
-  line-height: 22px;
-  color: #8c8c8c;
-  margin: 0;
-}
-
-#container a {
-  text-decoration: none;
+#container .price {
+  color: #fff;
+  text-align: center;
+  font-family: "Poppins";
+  font-size: 32px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+  letter-spacing: -0.64px;
 }
 </style>
