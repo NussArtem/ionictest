@@ -15,20 +15,28 @@
 
     const chartData = ref( {
         labels: [ 'January', 'February', 'March', 'April', 'May', 'June', 'July' ],
-            datasets: [ { label: 'Coin value',
-                borderColor: 'rgb(54, 162, 235)',
-                backgroundColor: 'rgb(54, 162, 235)',
+            datasets: [ { label: '',
+                borderColor: '#0695FF',
+                backgroundColor: '#0695FF',
                 data: [7, 49, 46, 13, 25, 30, 22],
                 fill: false,
                 pointBorderColor: 'rgba(0, 0, 0, 0)',
                 pointBackgroundColor: 'rgba(0, 0, 0, 0)',
-                pointHoverBackgroundColor: 'rgb(54, 162, 235)',
-                pointHoverBorderColor: 'rgb(54, 162, 235)',},],
+                pointHoverBackgroundColor: '#0695FF',
+                borderWidth: 1,
+                pointHoverBorderColor: '#0695FF',},],
+
 
     },)
     const chartOptions = ref( {
         responsive: true,
-            scales: {
+        plugins: {
+            legend: {
+                display: false, // Скрыть легенду (название датасета)
+            },
+        },
+
+        scales: {
                 x: {
                     display: false, // Скрыть нижнюю шкалу (x-ось)
                 },
@@ -39,16 +47,9 @@
     })
     const days = 7;
     const unixTimestamp = Math.floor(Date.now() / 1000);
-    const fromDate = unixTimestamp - (days * 24 * 60 * 60);
-    const params = {
-        vs_currency: 'usd', // Замените на нужную валюту
-        from: fromDate,
-        to: unixTimestamp,
-        interval: 'daily', // Интервал данных (daily, hourly и т. д.)
-    };
     onMounted(()=> {
         let tokenId = 'bitcoin'
-        axios.get(`https://api.coingecko.com/api/v3/coins/bitcoin`, { params })
+        axios.get(`https://data.messari.io/api/v1/assets?fields=id,slug,symbol,metrics/market_data/price_usd`)
             .then(response => {
                 console.log(response)
             })

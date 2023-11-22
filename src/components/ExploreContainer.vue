@@ -1,17 +1,37 @@
 <template>
   <div id="container">
     <span>Portfolio Value</span>
-    <span class="price">$ 4,562.52</span>
-    <Bagde value="1000" type="success"></Bagde>
+    <span class="price">$ {{coinRate}}</span>
+    <Bagde background value="1000" type="success"></Bagde>
   </div>
 </template>
 
-<script setup lang="ts">
+<script setup>
 import Bagde from "@/components/Bagde.vue";
+import axios from "axios";
+import {onMounted, ref} from "@vue/runtime-core";
+
+const coinSymbol = ref('')
+const coinRate = ref('')
 
 defineProps({
   name: String,
 });
+
+onMounted(async () => {
+  coinSymbol.value = 'BTC'
+  try {
+    let response = await axios.get(`https://data.messari.io/api/v1/assets?fields=id,slug,symbol,metrics/market_data/price_usd`)
+    let tokenInfo = response.data.data.filter((i) => i.symbol === coinSymbol.value)[0]
+    console.log(response.data.data.filter((i) => i.symbol === coinSymbol.value))
+    coinRate.value = tokenInfo.metrics.market_data.price_usd.toFixed(2)
+    console.log(coinRate.value)
+  } catch (e) {
+      console.error('Error fetching historical data:', e);
+  }
+
+
+})
 </script>
 
 <style scoped>

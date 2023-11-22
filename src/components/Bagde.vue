@@ -1,5 +1,5 @@
 <template>
-  <div class="badge" :class="type">{{ value > 0 ? "+" : "-" }}{{ value }}%</div>
+  <div class="badge" :class="type" :style="background ? '' : 'background: none'">{{ value > 0 ? "+" : "-" }}{{ value }}%</div>
 </template>
 <script setup>
 defineProps({
@@ -10,6 +10,10 @@ defineProps({
   value: {
     type: String,
     default: "1000",
+  },
+  background: {
+    type: Boolean,
+    default: false,
   },
 });
 </script>
